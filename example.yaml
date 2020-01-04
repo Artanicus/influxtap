@@ -1,0 +1,9 @@
+urls:
+  - https://github.com
+  - https://example.com/foobar
+
+influxdb:
+  - host: monitoring.lxc
+  - port: 8086
+  - user: ""
+  - password: ""
