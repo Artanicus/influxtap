@@ -2,7 +2,7 @@
 Description=InfluxTap monitors websites and pushes data into InfluxDB
 
 [Service]
-ExecStart=/srv/ephemeral/hamina-rss.git/haminaNewsBot.py --config /srv/ephemeral/hamina-rss.git/prod.ini
+ExecStart=/usr/local/bin/influxtap --config /usr/local/etc/influxtap/config.yaml
 Restart=always
 
 [Install]
