@@ -4,7 +4,8 @@ import yaml
 import requests, datetime
 from influxdb import InfluxDBClient, SeriesHelper
 from influxdb.exceptions import InfluxDBServerError
-
+from urllib3.exceptions import NewConnectionError
+from requests.exceptions import ConnectionError
 from absl import flags, logging
 
 from . import cache
@@ -64,7 +65,10 @@ class Tappery():
     """
     def probe(self):
         for url in self.urls:
-            self.requests.append(requests.get(url))
+            try:
+                self.requests.append(requests.get(url))
+            except (ConnectionError, NewConnectionError) as e:
+                logging.error('Connection failed [{0}]: {1}'.format(url, e))
 
     """ InfluxDB writer from a list of well formatted datapoints
         - Timestamps are assumed to be in UTC unless overriden with tz
