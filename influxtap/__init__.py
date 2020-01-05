@@ -26,11 +26,8 @@ class RequestSeries(SeriesHelper):
 class Tappery():
     def __init__(self, config):
         self.requests = [] # results queue for storage
-        self.datapoints = [] # queue for datapoints going into storage
         self.cache = cache.Cache() # outgoing write cache handling
         self.reload_config(config)
-        if self.cache.exists(): # populate any existing cache dump
-            self.datapoints.extend(cache.read())
 
 
     """ High-level storage of a list of requests.result objects
@@ -47,19 +44,20 @@ class Tappery():
             logging.info('[{0}] {1} in {2}'.format(result.status_code, result.request.url, result.elapsed))
             dps.append(dp)
         # push to write queue
-        self.datapoints.extend(dps)
+        self.cache.cache.extend(dps)
         # clear read queue
         self.requests = []
         try:
             logging.info('writing to InfluxDB...')
-            self._write_influx(self.datapoints)
+            self._write_influx(self.cache.cache)
         except InfluxDBServerError:
-            logging.warning('Data kept in cache({0}), issues writing to InfluxDB'.format(len(self.datapoints)))
+            logging.warning('Issues writing to InfluxDB, data kept in cache({0}'.format(len(self.cache.cache)))
+        except ConnectionError:
+            logging.error('InfluxDB connection could not be established / maintained. Check your config and/or InfluxDB instance. Data kept in cache({0})'.format(len(self.cache.cache)))
         else:
             # write succeeded, drop cache
-            logging.info('Write({0}) successful!'.format(len(self.datapoints)))
-            self.datapoints = [] # clear temporary cache
-            self.cache.clear() # clear any permanent cache we may have had
+            logging.info('Write({0}) successful!'.format(len(self.cache.cache)))
+            self.cache.clear() # clear any temporary and permanent cache
 
     """ Do a round of requests and store the results
     """
