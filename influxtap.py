@@ -31,6 +31,7 @@ def main(argv):
     
     while True:
         tap.probe()
+        tap.store()
         time.sleep(FLAGS.interval)
 
 
