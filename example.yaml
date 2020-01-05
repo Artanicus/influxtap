@@ -1,9 +1,9 @@
 urls:
-  - https://cc.mythmardyl.org
-  - https://video.nocturnal.fi
+  - https://github.org
+  - https://example.com/does_not_exist
 
 influxdb:
-  host: monitoring.lxc
+  host: localhost
   port: 8086
   database: "influxtap"
   username: ""
