@@ -1,5 +1,5 @@
 urls:
-  - https://github.org
+  - https://github.com
   - https://example.com/does_not_exist
 
 influxdb:

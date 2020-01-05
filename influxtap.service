@@ -1,0 +1,9 @@
+[Unit]
+Description=InfluxTap monitors websites and pushes data into InfluxDB
+
+[Service]
+ExecStart=/srv/ephemeral/hamina-rss.git/haminaNewsBot.py --config /srv/ephemeral/hamina-rss.git/prod.ini
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

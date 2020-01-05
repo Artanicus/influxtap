@@ -2,7 +2,7 @@
 import signal, time
 from absl import flags, logging, app
 
-import tappery
+import influxtap
 
 FLAGS = flags.FLAGS
 logging.set_verbosity(logging.WARNING)
@@ -14,7 +14,7 @@ flags.mark_flag_as_required('config')
     
 
 def main(argv):
-    tap = tappery.Tappery(FLAGS.config)
+    tap = influxtap.Tappery(FLAGS.config)
     
     # Handle cache dumping if killed.
     def sigterm_handler(signal, frame):
