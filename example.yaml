@@ -1,9 +1,10 @@
 urls:
-  - https://github.com
-  - https://example.com/foobar
+  - https://cc.mythmardyl.org
+  - https://video.nocturnal.fi
 
 influxdb:
-  - host: monitoring.lxc
-  - port: 8086
-  - user: ""
-  - password: ""
+  host: monitoring.lxc
+  port: 8086
+  database: "influxtap"
+  username: ""
+  password: ""
