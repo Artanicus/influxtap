@@ -7,7 +7,7 @@ from influxdb.exceptions import InfluxDBServerError
 
 from absl import flags, logging
 
-from util import cache
+from . import cache
 
 FLAGS = flags.FLAGS
 

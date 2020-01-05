@@ -13,7 +13,7 @@ flags.DEFINE_integer('interval', 60, 'Global interval for data collection in sec
 flags.mark_flag_as_required('config')
     
 
-def main(argv):
+def real_main(argv = None):
     tap = influxtap.Tappery(FLAGS.config)
     
     # Handle cache dumping if killed.
@@ -35,7 +35,8 @@ def main(argv):
         time.sleep(FLAGS.interval)
 
 
+def main(argv = None):
+    app.run(real_main)
 
 if __name__ == "__main__":
-    app.run(main)
-
+    app.run(real_main)
